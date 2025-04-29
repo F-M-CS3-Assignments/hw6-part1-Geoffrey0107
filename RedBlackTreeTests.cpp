@@ -18,6 +18,7 @@ void TestSimpleConstructor(){
 void TestConstructor(){
 	cout << "Testing Constructor W/Int Input..." << endl;
 	RedBlackTree rbt = RedBlackTree(15);
+	//cout << rbt.ToPrefixString() <<endl;
 	assert(rbt.ToPrefixString() == " B15 ");
 
 	cout << "PASSED!"<< endl << endl;
@@ -58,7 +59,7 @@ void TestInsertThirdNode(){
 	rbt->Insert(30);
 	rbt->Insert(15);
 	rbt->Insert(10); // Left Left
-	//cout << "rbt: "  << rbt->ToPrefixString() << endl;
+	cout << "rbt: "  << rbt->ToPrefixString() << endl;
 	assert(rbt->ToPrefixString() == " B15  R10  R30 ");
 	delete rbt;
 	
@@ -108,6 +109,33 @@ void TestInsertFifthNode(){
 	cout << "PASSED!" << endl << endl;
 }
 
+void TestInsertDuplicate() {
+    cout << "Testing Duplicate Insert..." << endl;
+    RedBlackTree rbt;
+    rbt.Insert(10);
+    rbt.Insert(10); 
+
+    assert(rbt.Contains(10));
+    cout << "PASSED!" << endl << endl;
+}
+
+void TestComplexRotations() {
+    cout << "Testing Complex Rotations..." << endl;
+
+    RedBlackTree rbt;
+    rbt.Insert(30);
+    rbt.Insert(10);
+    rbt.Insert(20); // Left-Right case
+    assert(rbt.ToPrefixString() == " B20  R10  R30 ");
+
+    rbt = RedBlackTree();
+    rbt.Insert(10);
+    rbt.Insert(30);
+    rbt.Insert(20); // Right-Left case
+    assert(rbt.ToPrefixString() == " B20  R10  R30 ");
+
+    cout << "PASSED!" << endl << endl;
+}
 
 void TestToStrings(){
 	cout << "Testing ToString Methods..." << endl;
@@ -120,6 +148,7 @@ void TestToStrings(){
 	rbt.Insert(13);
 	rbt.Insert(7);
 
+	cout << rbt.ToPostfixString() <<endl;
 	assert(rbt.ToPrefixString() == " B12  B7  R5  R11  B15  R13 ");
 	assert(rbt.ToInfixString() == " R5  B7  R11  B12  R13  B15 ");
 	assert(rbt.ToPostfixString() == " R5  R11  B7  R13  B15  B12 ");
